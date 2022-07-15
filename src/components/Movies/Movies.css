@@ -1,0 +1,11 @@
+.movies {
+    max-width: 100%;
+    margin: 0 auto 0 auto;
+    max-height: 110vh;
+}
+
+.movies_noScroll {
+    max-width: 100%;
+    margin: 0 auto 0 auto;
+    overflow: hidden;
+}
