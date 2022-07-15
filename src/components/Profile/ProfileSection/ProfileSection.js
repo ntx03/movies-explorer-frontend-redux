@@ -1,13 +1,11 @@
 import React from 'react';
 import './ProfileSection.css';
 import { useState, useEffect } from "react";
-import { getContent } from '../../../utils/auth';
 import CurrentUserContext from '../../../contexts/currentUserContext';
+import { useSelector } from 'react-redux';
 
-function ProfileSection({ logOut, updateUser, errorUpdate, errorEmailUpdate, setErrorUpdate, button, setButton, userName, setUserName, email, setEmail, name, setName }) {
+function ProfileSection({ logOut, workButton, updateUser, errorUpdate, errorEmailUpdate, setErrorUpdate, userName, setUserName, email, setEmail, name, setName }) {
     const user = React.useContext(CurrentUserContext);
-
-
 
     // записываем инпут email при отправке submit или при нажатии на кнопку редактировать
     const [changeEmail, setChangeEmail] = useState('');
@@ -17,6 +15,7 @@ function ProfileSection({ logOut, updateUser, errorUpdate, errorEmailUpdate, set
 
     // емайл пользователя
     const [emailValidate, setEmailValidate] = useState(true);
+
     const onChangeEmail = (e) => {
         setEmail(e.target.value)
         const re =
@@ -53,7 +52,7 @@ function ProfileSection({ logOut, updateUser, errorUpdate, errorEmailUpdate, set
     // управление кнопкой редактирования профиля
     const saveFrofileButton = (e) => {
         e.preventDefault();
-        setButton(true);
+        workButton();
         setChangeName(name);
         setChangeEmail(email);
         setValidate(false);
@@ -74,6 +73,8 @@ function ProfileSection({ logOut, updateUser, errorUpdate, errorEmailUpdate, set
             setValidate(true);
         } else setValidate(false);
     }, [email, name]);
+
+    const button = useSelector(state => state.button.button);
 
     return (
         <section className='profile'>

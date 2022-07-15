@@ -8,14 +8,15 @@ import { Provider } from 'react-redux';
 import logginInReducer from './store/logginIn';
 import movieReducer from './store/movie';
 import movieSaveReducer from './store/movieSave';
+import buttonReducer from './store/button';
 import { BrowserRouter } from 'react-router-dom';
 
 const rootReducer = combineReducers({
   loggin: logginInReducer,
   movie: movieReducer,
   movieSave: movieSaveReducer,
+  button: buttonReducer,
 }
-
 )
 
 const store = createStore(rootReducer);

@@ -19,6 +19,9 @@ import { useDispatch } from 'react-redux';
 
 
 function App() {
+  let location = useLocation();
+
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
@@ -46,12 +49,14 @@ function App() {
     dispatch({ type: 'movieSave_false', payload: false })
   }
 
-  let location = useLocation();
+  const buttonTrue = () => {
+    dispatch({ type: 'button_true', payload: true })
+  }
 
-  const navigate = useNavigate();
+  const butttonFalse = () => {
+    dispatch({ type: 'button_false', payload: false })
+  }
 
-  // меняем шрифт в header "Сохраненные фильмы"
-  // const [movieSave, setMovieSave] = useState(false);
 
   // открытие попапа навигации
   const [navigation, setNavigation] = useState(false);
@@ -114,7 +119,7 @@ function App() {
   const [saveChecked, setSaveChecked] = React.useState(false);
 
   // управление кнопкой в профиле пользователя
-  const [button, setButton] = useState(false);
+  // const [button, setButton] = useState(false);
 
   // имя пользователя в профиле пользователя
   const [userName, setUserName] = useState('Вася');
@@ -269,7 +274,7 @@ function App() {
     }
     if (location.pathname === '/profile') {
       const token = localStorage.getItem('token');
-      setButton(false);
+      butttonFalse();
       getContent(token)
         .then((res) => {
           logginInTrue();
@@ -387,7 +392,7 @@ function App() {
     api.patchUser({ name, email })
       .then((res) => {
         if (res) {
-          setButton(false);
+          butttonFalse();
           setErrorUpdate(false);
           setUserName(res.name);
           navigate('/profile');
@@ -457,14 +462,13 @@ function App() {
                 updateUser={updateUser}
                 errorUpdate={errorUpdate}
                 errorEmailUpdate={errorEmailUpdate}
-                button={button}
-                setButton={setButton}
                 userName={userName}
                 setUserName={setUserName}
                 email={email}
                 setEmail={setEmail}
                 name={name}
-                setName={setName} />
+                setName={setName}
+                workButton={buttonTrue} />
             </ProtectedRoute>} />
           <Route path='/saved-movies' element={
             <ProtectedRoute loggedIn={localStorage.getItem('loggedIn')}>
